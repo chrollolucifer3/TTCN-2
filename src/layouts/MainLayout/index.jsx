@@ -41,7 +41,7 @@ function MainLayout(props) {
               <div className={styles.titleWrap}>{titlePage}</div>
               <div className={styles.breadcrumbWrap}>
                 <span className={`${styles.text}`}>Home</span> <span className={styles.slash}>/</span>
-                <span className={`${styles.text} ${styles.breadcrumbActive}`}>Dashboard</span>
+                <span className={`${styles.text} ${styles.breadcrumbActive}`}>{titlePage}</span>
               </div>
             </div>
             {children}

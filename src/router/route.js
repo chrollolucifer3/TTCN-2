@@ -8,6 +8,8 @@ import Home from '../pages/Home';
 import Employee from '../pages/Employee';
 import About from '../pages/About';
 import { rootLoader } from "./rootLoader";
+import Unit from 'pages/Unit';
+import Category from 'pages/Category';
 
 const router = createBrowserRouter([
   {
@@ -17,13 +19,6 @@ const router = createBrowserRouter([
       {request},false, 'LOAD_AUTH_PAGE'
     )
   },
-  // {
-  //   path: '/register',
-  //   element: <Register/>,
-  //   loader: ({request}) => rootLoader(
-  //     {request}, false, 'LOAD_AUTH_PAGE'
-  //   )
-  // },
   // {
   //   path: '/forgot-password',
   //   element: <ForgotPassword/>,
@@ -68,6 +63,20 @@ const router = createBrowserRouter([
       {request},true, 'LOAD_EMPLOYEE_PAGE'
     )
   },
+  {
+    path: '/unit',
+    element: <Unit/>,
+    loader: ({request}) => rootLoader(
+      {request},true, 'LOAD_UNIT_PAGE'
+    )
+  },
+  {
+    path: '/category',
+    element: <Category/>,
+    loader: ({request}) => rootLoader(
+      {request},true, 'LOAD_CATEGORY_PAGE'
+    )
+  }
 ]);
 
 export default router;

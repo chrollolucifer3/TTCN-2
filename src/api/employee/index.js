@@ -12,9 +12,9 @@ export const getListEmployee = (dataFilter = {
   page: 1
 }) => async (dispatch, getState) => {
    // Nếu status tồn tại và có giá trị, thiết lập page về 1
-   if (dataFilter.status && dataFilter.status.length > 0) {
-    dataFilter.page = 1;
-  }
+  //  if (dataFilter.status && dataFilter.status.length > 0) {
+  //   dataFilter.page = 1;
+  // }
   let path = `api/v1/users/getAllUsers?limit=${dataFilter.perPage}&page=${dataFilter.page}`;
 
   if (dataFilter.keySearch) {
@@ -84,15 +84,3 @@ export const handleDeleteEmployee = (idEmployee) => async (dispatch, getState) =
     getState
   })
 }
-
-// export const updateEmployeeStatus = (idEmployee, status) => async (dispatch, getState) => {
-//   const path = status === 'active' ? `users/${idEmployee}/soft-delete` : `users/${idEmployee}/restore`;
-//   return callApi({
-//     method: 'post',
-//     apiPath: path,
-//     actionTypes: [updateStatusEmployee, updateStatusEmployeeSuccess, updateStatusEmployeeFail],
-//     variables: {status},
-//     dispatch,
-//     getState
-//   })
-// }

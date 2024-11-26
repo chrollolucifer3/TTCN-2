@@ -1,4 +1,8 @@
-import {isValidEmail, isValidPassword, isValidPhone} from "./helper";
+import {
+  isValidEmail,
+  isValidPassword,
+  isValidPhone
+} from "./helper";
 import _ from "lodash";
 
 export const isValidate = (data, type, errors) => {
@@ -6,6 +10,17 @@ export const isValidate = (data, type, errors) => {
   let dataError = _.cloneDeep(errors);
 
   switch (type) {
+    case 'name':
+      if (data.name.length === 0) {
+        dataError.name = 'Please complete this required field!';
+        error = true;
+      } else if (data.name.length > 200) {
+        dataError.name = 'Maximum number of characters allowed: 200';
+        error = true;
+      } else {
+        dataError.name = '';
+      }
+      break;
     case 'full_name':
       if (data.full_name.length === 0) {
         dataError.full_name = 'Please complete this required field!';
@@ -78,7 +93,7 @@ export const isValidate = (data, type, errors) => {
         dataError.password = '';
       }
       break;
-      case 'passwordOld': 
+    case 'passwordOld':
       if (data.passwordOld.length === 0) {
         dataError.passwordOld = 'Please complete this required field!';
         error = true;
@@ -89,7 +104,7 @@ export const isValidate = (data, type, errors) => {
         dataError.passwordOld = '';
       }
       break;
-      case 'passwordNew':
+    case 'passwordNew':
       if (data.passwordNew.length === 0) {
         dataError.passwordNew = 'Please complete this required field!';
         error = true;
@@ -100,17 +115,17 @@ export const isValidate = (data, type, errors) => {
         dataError.passwordNew = '';
       }
       break;
-    // case 'confirmPassword':
-    //   if (data.confirmPassword.length === 0) {
-    //     dataError.confirmPassword = 'Please complete this required field!';
-    //     error = true;
-    //   } else if (data.password && data.confirmPassword !== data.password) {
-    //     dataError.confirmPassword = 'Passwords do not match. Please try again.'
-    //     error = true
-    //   } else {
-    //     dataError.confirmPassword = '';
-    //   }
-    //   break;
+      // case 'confirmPassword':
+      //   if (data.confirmPassword.length === 0) {
+      //     dataError.confirmPassword = 'Please complete this required field!';
+      //     error = true;
+      //   } else if (data.password && data.confirmPassword !== data.password) {
+      //     dataError.confirmPassword = 'Passwords do not match. Please try again.'
+      //     error = true
+      //   } else {
+      //     dataError.confirmPassword = '';
+      //   }
+      //   break;
     case 'position':
       if (data.position.length === 0) {
         dataError.position = 'Please complete this required field!';
@@ -134,13 +149,24 @@ export const isValidate = (data, type, errors) => {
       }
       break;
     case 'roleName':
-        if (data.roleName === '') {
-          dataError.roleName = 'Please complete this required field!';
-          error = true;
-        } else {
-          dataError.roleName = '';
-        }
-        break;
+      if (data.roleName === '') {
+        dataError.roleName = 'Please complete this required field!';
+        error = true;
+      } else {
+        dataError.roleName = '';
+      }
+      break;
+    case 'description':
+      if (data.description.length === 0) {
+        dataError.description = 'Please complete this required field!';
+        error = true;
+      } else if (data.description.length > 500) {
+        dataError.description = 'Maximum number of characters allowed: 500';
+        error = true;
+      } else {
+        dataError.description = '';
+      }
+      break;
   }
 
   return {
