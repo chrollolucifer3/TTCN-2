@@ -6,9 +6,13 @@ import InputRES from "../../components/UI/Input";
 import ButtonRES from "../../components/UI/Button";
 import CreateOrUpdate from "./components/CreateOrUpdate";
 import TableCustom from "../../components/UI/Table";
-import { FormOutlined } from "@ant-design/icons";
-import { setVisibleModalCreateOrUpdateCategory } from "../../states/modules/category";
-import { getListCategory } from "api/category";
+import ModalList from "components/UI/Modal/ModalList";
+import { FormOutlined, InfoCircleOutlined } from "@ant-design/icons";
+import {
+  setVisibleModalCreateOrUpdateCategory,
+  setVisibleModalListFoodByCategory,
+} from "../../states/modules/category";
+import { getListCategory, getListFoodByCategory } from "api/category";
 
 import _ from "lodash";
 
@@ -29,7 +33,7 @@ function Category() {
       key: "action",
       fixed: "right",
       align: "center",
-      width: "200px",
+      width: "80px",
       render: (text, record) => (
         <>
           {authUser.roleName !== "ADMIN" && authUser.roleName !== "MANAGER" ? (
@@ -41,6 +45,14 @@ function Category() {
               >
                 <FormOutlined />
               </div>
+              <div
+                onClick={() => handleShowListFood(record)}
+                className={styles.btnWrap}
+                title="Detail"
+              >
+                <InfoCircleOutlined />
+                {/* <img src={IconDeleteTable} alt="" /> */}
+              </div>
             </div>
           ) : (
             ""
@@ -51,6 +63,11 @@ function Category() {
   ];
   const dispatch = useDispatch();
   const categories = useSelector((state) => state.category.categories);
+  const foods = useSelector((state) => state.category.foods);
+
+  const visibleModalListFoodByCategory = useSelector(
+    (state) => state.category.visibleModalListFoodByCategory
+  );
 
   const isLoadingListCategory = useSelector(
     (state) => state.category.isLoadingListCategory
@@ -65,7 +82,6 @@ function Category() {
   });
   const [dataFilter, setDataFilter] = useState({
     keySearch: "",
-    status: "",
     perPage: 10,
     page: 1,
     order: null,
@@ -83,6 +99,17 @@ function Category() {
       type: "CREATE",
     });
   };
+
+  const handleShowListFood = (category) => {
+    setCategory(category); 
+    dispatch(setVisibleModalListFoodByCategory(true));
+    dispatch(getListFoodByCategory(category.id));
+    // setCategory(category);
+  };
+
+  // const loadMoreFoods = (categoryId) => {
+  //   dispatch(getListFoodByCategory(categoryId));
+  // };
 
   const handleEdit = (category) => {
     let categorySelect = _.cloneDeep(category);
@@ -180,6 +207,14 @@ function Category() {
         </div>
 
         <CreateOrUpdate category={category} configModal={configModal} />
+
+        <ModalList
+          isModalOpen={visibleModalListFoodByCategory}
+          title={`Food List in Category: ${category.name}`}
+          onClose={() => dispatch(setVisibleModalListFoodByCategory(false))}
+          data={foods}
+          categoryId={category?.id} // Truyền categoryId từ parent component
+        />
       </div>
     </MainLayout>
   );

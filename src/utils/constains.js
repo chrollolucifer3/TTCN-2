@@ -1,3 +1,3 @@
-export const STATUS_USER = [];
-STATUS_USER['BLOCK'] = 0;
-STATUS_USER['ACTIVATE'] = 1;
+export const STATUS_VALUE = [];
+STATUS_VALUE['0'] = 0;
+STATUS_VALUE['1'] = 1;

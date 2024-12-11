@@ -1,1 +1,16 @@
 @import "src/assets/scss/variables";
+
+.listWrap {
+
+.paginationWrap {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+    .textPagination {
+      font-size: 15px;
+    }
+  }
+
+}

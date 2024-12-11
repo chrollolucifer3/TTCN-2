@@ -2,11 +2,13 @@ import React from "react";
 import styles from "./styles.module.scss";
 import "./styles.scss";
 import PropTypes from "prop-types";
-import { Card } from 'antd';
+import { Card } from "antd";
 
-CardRES.prototype = {
+const { Meta } = Card;
+
+CardRES.propTypes = {
   title: PropTypes.string.isRequired,
-  actions: PropTypes.node,
+  actions: PropTypes.arrayOf(PropTypes.node),
   loading: PropTypes.bool,
   cover: PropTypes.node,
   bordered: PropTypes.bool,
@@ -17,24 +19,31 @@ CardRES.defaultProps = {
   title: "",
   actions: [],
   loading: false,
-  cover: "",
+  cover: null,
   bordered: false,
-  description: "",
+  description: null,
 };
 
 function CardRES(props) {
-  let { title, actions, loading, cover, bordered, description } = props;
+  const { title, actions, loading, cover, bordered, description, price, unit } = props;
   
   return (
     <div className={styles.cardWrap}>
       <Card
-        title={title}
         actions={actions}
         loading={loading}
-        cover={cover}
+        cover={cover && <img alt="example" src={cover} />}
         bordered={bordered}
-      />
-      {description && <div className={styles.description}>{description}</div>}
+      >
+        <Meta title={title} description={description} />
+        <div className={styles.unitWrap}>Size: {unit}</div>
+        <div style={{
+              color: "#d70018",
+              fontSize: "18px",
+              fontWeight: 700,
+              lineHeight: 1,
+        }}>{price.toLocaleString('vi-VN')}đ</div>
+      </Card>
     </div>
   );
 }

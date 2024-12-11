@@ -4,16 +4,18 @@ const categorySlice = createSlice({
   name: 'category',
   initialState: {
     categories: [],
+    foods: [],
     isLoadingListCategory: false,
     paginationListCategory: {
       currentPage: 1,
-      perPage: 10,
+      perPage: '',
       totalPage: 1,
       totalRecord: 0,
     },
 
     visibleModalCreateOrUpdateCategory: false,
     isLoadingBtnCreateOrUpdateCategory: false,
+    visibleModalListFoodByCategory: false,
     errorCreateOrUpdateCategory: {
       name: '',
     },
@@ -28,7 +30,22 @@ const categorySlice = createSlice({
       ...state,
       visibleModalCreateOrUpdateCategory: action.payload
     }),
-
+    setVisibleModalListFoodByCategory: (state, action) => ({
+      ...state,
+      visibleModalListFoodByCategory: action.payload
+    }),
+    getListFoodByCategoryId : (state) => ({
+      ...state,
+      foods: [],
+    }),
+    getListFoodByCategoryIdSuccess : (state, action) => ({
+      ...state,
+      foods: action.payload.metadata.foodData.listFoods,
+    }),
+    getListFoodByCategoryIdFail : (state) => ({
+      ...state,
+      foods: [],
+    }),
     getList: (state) => ({
       ...state,
       categories: [],
@@ -80,10 +97,11 @@ const categorySlice = createSlice({
 export const {
   setErrorCreateOrUpdateCategory,
   setVisibleModalCreateOrUpdateCategory,
+  setVisibleModalListFoodByCategory,
   getList, getListSuccess, getListFail,
   createCategory, createCategorySuccess, createCategoryFail,
   updateCategory, updateCategorySuccess, updateCategoryFail,
-
+  getListFoodByCategoryId, getListFoodByCategoryIdSuccess, getListFoodByCategoryIdFail
 } = categorySlice.actions
 
 export default categorySlice.reducer;

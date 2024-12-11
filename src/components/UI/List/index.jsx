@@ -4,6 +4,8 @@ import "./styles.scss";
 import PropTypes from "prop-types";
 import { List, Pagination } from "antd";
 import CardRES from "../Card";
+import { FormOutlined, DeleteOutlined } from "@ant-design/icons";
+import nodataImg from 'assets/images/user/nodata.jpg';
 
 ListRES.prototype = {
   dataSource: PropTypes.array.isRequired,
@@ -39,8 +41,20 @@ function ListRES(props) {
           <List.Item>
             <CardRES
               title={item.name}
+              cover={item.image_url ? item.image_url : nodataImg}
               description={item.description}
-              actions={actions}
+              price={item.price}
+              unit={item.unit}
+              actions={[
+                <FormOutlined 
+                  key="edit" 
+                  onClick={() => props.handleEdit(item)} // Truyền item vào hàm handleEdit
+                />,
+                <DeleteOutlined 
+                  key="ellipsis" 
+                  onClick={() => props.handleShowConfirmDelete(item)} // Truyền item vào hàm handleShowConfirmDelete
+                />,
+              ]}
             ></CardRES>
           </List.Item>
         )}

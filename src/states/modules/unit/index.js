@@ -7,7 +7,7 @@ const unitSlice = createSlice({
     isLoadingTableUnit: false,
     paginationListUnit: {
       currentPage: 1,
-      perPage: 10,
+      perPage: '',
       totalPage: 1,
       totalRecord: 0,
     },

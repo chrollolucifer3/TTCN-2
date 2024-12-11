@@ -6,18 +6,22 @@ import _ from 'lodash';
 import ButtonRES from "../../../components/UI/Button";
 import {isValidate} from "../../../utils/validate";
 import {handleCheckValidateConfirm} from "../../../utils/helper";
+import {forgotPassword} from "../../../api/auth";
+import {useDispatch, useSelector} from "react-redux";
+import { setErrorDataForgotPassword } from 'states/modules/auth';
 
 function ForgotPassword() {
-  const [dataForgotPassword, setDataForgotPassword] = useState({email : ''})
-  const [errorDataForgotPassword, setErrorDataForgotPassword] = useState({email : ''})
+  const [dataForgotPassword, setDataForgotPassword] = useState({ email: '' })
+ const isLoadingBtnForgotPassword = useSelector((state) => state.auth.isLoadingBtnForgotPassword);
+ const forgotPasswordError = useSelector((state) => state.auth.forgotPasswordError);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    handleResetError();
-  }, [dataForgotPassword])
-
-  const handleResetError = () => {
-    setErrorDataForgotPassword({email: ''});
-  }
+    dispatch(setErrorDataForgotPassword({
+      email: ''
+    }));
+  }, [dataForgotPassword, dispatch]);
 
   const handleChangeInput = (valueInput, type) => {
     let value = valueInput.target.value;
@@ -27,16 +31,16 @@ function ForgotPassword() {
   }
 
   const validateBlur = (type) => {
-    let validate = isValidate(dataForgotPassword, type, errorDataForgotPassword);
+    let validate = isValidate(dataForgotPassword, type, forgotPasswordError);
     setErrorDataForgotPassword(validate.error);
     return validate.isError;
   }
 
-  const handleConfirmLogin = () => {
-    let validate = handleCheckValidateConfirm(dataForgotPassword, errorDataForgotPassword);
+  const handleConfirmEmail = () => {
+    let validate = handleCheckValidateConfirm(dataForgotPassword, forgotPasswordError);
     setErrorDataForgotPassword(validate.dataError);
     if (!validate.isError) {
-      alert('Login')
+     dispatch(forgotPassword(dataForgotPassword));
     }
   }
 
@@ -51,15 +55,15 @@ function ForgotPassword() {
             onChange={(e) => handleChangeInput(e, 'email')}
             onBlur={() => validateBlur('email')}
             value={dataForgotPassword.email}
-            error={errorDataForgotPassword.email}
+            error={forgotPasswordError.email}
           />
         </div>
 
         <div className={styles.btnWrap}>
           <ButtonRES
             textBtn={'Send email'}
-            loading={false}
-            onClick={() => handleConfirmLogin()}
+            loading={isLoadingBtnForgotPassword}
+            onClick={() => handleConfirmEmail()}
             disable={false}
             style={{
               display: "flex",

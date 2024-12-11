@@ -4,7 +4,7 @@ import { getList, getListSuccess, getListFail,
     updateUnit, updateUnitSuccess, updateUnitFail,
  } from "states/modules/unit";
 export const getListUnit = (dataFilter = {
-    perPage: 10,
+    perPage: '',
     page: 1
   }) => async (dispatch, getState) => {
 

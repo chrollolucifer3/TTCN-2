@@ -7,6 +7,9 @@ import {getAuthToken} from "../utils/localStorage";
 
 export const rootLoader = async ({request},isAuth, saga = null, permissions = []) => {
   const url = new URL(request.url);
+
+  const isResetPassword = url.pathname.startsWith('/resetPassword');
+
   if (url.pathname === '/profile') {
     await store.dispatch(getMe());
   }
@@ -16,7 +19,7 @@ export const rootLoader = async ({request},isAuth, saga = null, permissions = []
     await store.dispatch(getMe());
   }
 
-  if (isAuth) {
+  if (isAuth && !isResetPassword) {
     if (!auth.isAuthSuccess) {
       return redirect('/login')
     }

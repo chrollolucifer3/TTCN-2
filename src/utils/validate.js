@@ -167,6 +167,36 @@ export const isValidate = (data, type, errors) => {
         dataError.description = '';
       }
       break;
+    case 'price': 
+      if (data.price.length === 0) {
+      dataError.price = 'Please complete this required field!';
+      error = true;
+      } else if (data.price < 0) {
+      dataError.price = 'Price must be greater than 0';
+      error = true;
+      } else if (!Number.isInteger(Number(data.price))) {
+      dataError.price = 'Price must be an integer';
+      error = true;
+      } else {
+      dataError.price = '';
+      }
+      break;
+    case 'category_id':
+      if (data.category_id === '') {
+        dataError.category_id = 'Please complete this required field!';
+        error = true;
+      } else {
+        dataError.category_id = '';
+      }
+      break;
+    case 'unit_id':
+      if (data.unit_id === '') {
+        dataError.unit_id = 'Please complete this required field!';
+        error = true;
+      } else {
+        dataError.unit_id = '';
+      }
+      break;
   }
 
   return {

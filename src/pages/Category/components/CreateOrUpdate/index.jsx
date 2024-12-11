@@ -93,7 +93,6 @@ function CreateOrUpdate(props) {
   const handleConfirmCreateOrUpdateCategory = () => {
     let dataToSend = {
         name: dataCreateOrUpdate.name,
-        description: dataCreateOrUpdate.description,
     };
 
     const validate = handleCheckValidateConfirm(

@@ -21,6 +21,7 @@ export default async function callApi ({
   const header = {
     // "Content-Type": "application/json",
     // "Content-Type": "multipart/form-data",
+    "Content-Type": "application/json" || "multipart/form-data",
     "Authorization": token ? `Bearer ${token}` : ""
   };
   dispatch(requestType())

@@ -1,15 +1,19 @@
 import React from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 import Login from '../pages/Auth/Login';
-// import Register from '../pages/Auth/Register';
-// import ForgotPassword from '../pages/Auth/ForgotPassword';
+import ForgotPassword from '../pages/Auth/ForgotPassword';
 import Profile from '../pages/Profile';
 import Home from '../pages/Home';
 import Employee from '../pages/Employee';
 import About from '../pages/About';
-import { rootLoader } from "./rootLoader";
 import Unit from 'pages/Unit';
 import Category from 'pages/Category';
+import Customer from 'pages/Customer';
+import Discount from 'pages/Discount';
+import Menu from 'pages/Menu';
+import UpdatePassword from 'pages/Auth/UpdatePassword';
+
+import { rootLoader } from "./rootLoader";
 
 const router = createBrowserRouter([
   {
@@ -19,13 +23,13 @@ const router = createBrowserRouter([
       {request},false, 'LOAD_AUTH_PAGE'
     )
   },
-  // {
-  //   path: '/forgot-password',
-  //   element: <ForgotPassword/>,
-  //   loader: ({request}) => rootLoader(
-  //     {request}, false, 'LOAD_AUTH_PAGE'
-  //   )
-  // },
+  {
+    path: '/forgot-password',
+    element: <ForgotPassword/>,
+    loader: ({request}) => rootLoader(
+      {request}, false, 'LOAD_AUTH_PAGE'
+    )
+  },
   {
     path: 'profile',
     element: <Profile/>,
@@ -75,6 +79,34 @@ const router = createBrowserRouter([
     element: <Category/>,
     loader: ({request}) => rootLoader(
       {request},true, 'LOAD_CATEGORY_PAGE'
+    )
+  },
+  {
+    path: '/customer',
+    element: <Customer/>,
+    loader: ({request}) => rootLoader(
+      {request},true, 'LOAD_CUSTOMER_PAGE'
+    )
+  },
+  {
+    path: '/discount',
+    element: <Discount/>,
+    loader: ({request}) => rootLoader(
+      {request},true, 'LOAD_DISCOUNT_PAGE'
+    )
+  },
+  {
+    path : '/menu',
+    element : <Menu/>,
+    loader : ({request}) => rootLoader(
+      {request},true, 'LOAD_MENU_PAGE'
+    )
+  },
+  {
+    path: '/resetPassword/:token',
+    element: <UpdatePassword/>,
+    loader: ({request}) => rootLoader(
+      {request}, true, 'LOAD_AUTH_PAGE'
     )
   }
 ]);

@@ -3,11 +3,12 @@ import callApi from "api/callApi";
 import {
     getList, getListSuccess, getListFail,
     createCategory, createCategorySuccess, createCategoryFail,
-    updateCategory, updateCategorySuccess, updateCategoryFail
+    updateCategory, updateCategorySuccess, updateCategoryFail,
+    getListFoodByCategoryId, getListFoodByCategoryIdSuccess, getListFoodByCategoryIdFail
 } from "states/modules/category";
 
 export const getListCategory = (dataFilter = { 
-    perPage : 10,
+    // perPage : '',
     page : 1
 }) => async (dispatch, getState) => {
     let path = `api/v1/foodCategories/getAll?limit=${dataFilter.perPage}&page=${dataFilter.page}`;
@@ -49,3 +50,14 @@ export const handleUpdateCategory = (data, idCategory) => async (dispatch, getSt
     })
 }
 
+export const getListFoodByCategory = (idCategory) => async (dispatch, getState) => {
+    console.log("Calling getListFoodByCategory with ID:", idCategory);
+    return callApi({
+        method: 'get',
+        apiPath: `api/v1/foodCategories/${idCategory}`,
+        actionTypes: [getListFoodByCategoryId, getListFoodByCategoryIdSuccess, getListFoodByCategoryIdFail],
+        variables: {},
+        dispatch,
+        getState
+    })
+}

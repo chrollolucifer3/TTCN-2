@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+
 const authSlice = createSlice({
   name: 'auth',
   initialState: {
@@ -9,10 +10,18 @@ const authSlice = createSlice({
       email: '',
       password: '',
     },
+    forgotPasswordError: {
+      email: '',
+    },
     isLoadingBtnLogin: false,
     isLoadingBtnLogout: false,
+    isLoadingBtnForgotPassword: false,
+    isLoadingBtnUpdatePassword: false,
   },
   reducers: {
+    setErrorDataForgotPassword: (state, action) => {
+      state.forgotPasswordError = action.payload;
+    },
     setErrorLogin: (state, action) => {
       state.loginError = action.payload;
     },
@@ -56,6 +65,30 @@ const authSlice = createSlice({
       ...state,
       isLoadingBtnLogout: false
     }),
+    startRequestForgotPassword: (state) => ({
+      ...state,
+      isLoadingBtnForgotPassword: true
+    }),
+    startRequestForgotPasswordSuccess: (state) => ({
+      ...state,
+      isLoadingBtnForgotPassword: false
+    }),
+    startRequestForgotPasswordFail: (state) => ({
+      ...state,
+      isLoadingBtnForgotPassword: false
+    }),
+    startRequestUpdatePassword: (state) => ({
+      ...state,
+      isLoadingBtnUpdatePassword: true
+    }),
+    startRequestUpdatePasswordSuccess: (state) => ({
+      ...state,
+      isLoadingBtnUpdatePassword: false
+    }),
+    startRequestUpdatePasswordFail: (state) => ({
+      ...state,
+      isLoadingBtnUpdatePassword: false
+    }),
   }
 })
 
@@ -63,7 +96,10 @@ export const {
   startRequestLogin, startRequestLoginSuccess, startRequestLoginFail,
   startRequestGetMe, startRequestGetMeSuccess, startRequestGetMeFail,
   startRequestLogOut, startRequestLogOutSuccess, startRequestLogOutFail,
-  setErrorLogin
+  startRequestForgotPassword, startRequestForgotPasswordSuccess, startRequestForgotPasswordFail,
+  setErrorLogin, setErrorDataForgotPassword,
+  startRequestUpdatePassword, startRequestUpdatePasswordSuccess, startRequestUpdatePasswordFail
+
 } = authSlice.actions
 
 export default authSlice.reducer;

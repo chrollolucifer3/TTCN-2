@@ -87,17 +87,19 @@ function Employee() {
           )}
         </>
       ),
-      filters: [
-        {
-          text: "Active",
-          value: "active",
-        },
-        {
-          text: "Block",
-          value: "blocked",
-        },
-      ],
-      onFilter: (value, record) => record.status.startsWith(value),
+      defaultSortOrder: "",
+      sorter: (a, b) => a.age - b.age,
+      // filters: [
+      //   {
+      //     text: "Active",
+      //     value: "active",
+      //   },
+      //   {
+      //     text: "Block",
+      //     value: "blocked",
+      //   },
+      // ],
+      // onFilter: (value, record) => record.status.startsWith(value),
     },
     {
       title: "Actions",
@@ -200,12 +202,12 @@ function Employee() {
   };
 
   const onChange = (pagination, filters, sorter) => {
-    // Lấy các giá trị bộ lọc cho cột 'status'
-    let status = "";
-    if (filters.status && filters.status.length === 1) {
-      status = filters.status[0];
-    }
-    // Cập nhật trạng thái dataFilter với thứ tự sắp xếp và bộ lọc
+    // // Lấy các giá trị bộ lọc cho cột 'status'
+    // let status = "";
+    // if (filters.status && filters.status.length === 1) {
+    //   status = filters.status[0];
+    // }
+    // // Cập nhật trạng thái dataFilter với thứ tự sắp xếp và bộ lọc
     setDataFilter({
       ...dataFilter,
       order: sorter.order
@@ -214,7 +216,7 @@ function Employee() {
           : "asc"
         : null,
       column: sorter.field ? sorter.field : null,
-      status: status, // Thêm bộ lọc trạng thái vào trạng thái dataFilter
+      // status: status, // Thêm bộ lọc trạng thái vào trạng thái dataFilter
     });
     // console.log("dataFilter", dataFilter);
     

@@ -1,0 +1,19 @@
+@import "../../../assets/scss/variables.scss";
+
+
+.ant-card-cover img {
+    height: 200px!important;
+    object-fit: cover;
+}
+
+.priceWrap {
+    color: #d70018;
+    display: inline-block;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.anticon-delete svg:hover {
+    color: $colorRed!important;
+  }
